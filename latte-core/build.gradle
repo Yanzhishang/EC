@@ -1,0 +1,62 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
+
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:26.+'
+    testCompile 'junit:junit:4.12'
+
+    // 字体图标
+    compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.2.2' // (v4.5)
+    compile 'com.joanzapata.iconify:android-iconify-entypo:2.2.2' // (v3,2015)
+    compile 'com.joanzapata.iconify:android-iconify-typicons:2.2.2' // (v2.0.7)
+    compile 'com.joanzapata.iconify:android-iconify-material:2.2.2' // (v2.0.0)
+    compile 'com.joanzapata.iconify:android-iconify-material-community:2.2.2' // (v1.4.57)
+    compile 'com.joanzapata.iconify:android-iconify-meteocons:2.2.2' // (latest)
+    compile 'com.joanzapata.iconify:android-iconify-weathericons:2.2.2' // (v2.0)
+    compile 'com.joanzapata.iconify:android-iconify-simplelineicons:2.2.2' // (v1.0.0)
+    compile 'com.joanzapata.iconify:android-iconify-ionicons:2.2.2' // (v2.0.1)
+
+    // 如果想使用SwipeBack 滑动边缘退出Fragment/Activity功能，完整的添加规则如下：
+    compile 'me.yokeyword:fragmentation:1.1.6'
+    // swipeback基于fragmentation, 如果是自定制SupportActivity/Fragment，则参照SwipeBackActivity/Fragment实现即可
+    compile 'me.yokeyword:fragmentation-swipeback:1.1.6'
+
+    //ButterKnife
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    //Retrofit、OKhttp
+    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile 'com.squareup.okio:okio:1.13.0'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.squareup.retrofit2:converter-scalars:2.3.0'
+
+    compile 'com.wang.avi:library:2.1.3'
+}
