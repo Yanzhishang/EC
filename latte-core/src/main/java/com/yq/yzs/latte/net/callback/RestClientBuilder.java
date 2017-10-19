@@ -6,6 +6,7 @@ import com.yq.yzs.latte.net.RestClient;
 import com.yq.yzs.latte.net.RestCreator;
 import com.yq.yzs.latte.ui.loader.LoaderStyle;
 
+import java.io.File;
 import java.util.HashMap;
 
 import okhttp3.MediaType;
@@ -25,8 +26,13 @@ public final class RestClientBuilder {
     private IFailure failure = null;
     private IError error = null;
     private RequestBody body = null; // 请求体
+    private File file = null;
     private Context context = null;
     private LoaderStyle loaderStyle = null;
+    private String downloadDir = null;
+    private String extension = null;
+    private String name = null;
+
 
     // 构造器
     public RestClientBuilder() {
@@ -85,9 +91,23 @@ public final class RestClientBuilder {
         return this;
     }
 
+    public RestClientBuilder dir(String dir) {
+        this.downloadDir = dir;
+        return this;
+    }
+
+    public RestClientBuilder extension(String extension) {
+        this.extension = extension;
+        return this;
+    }
+
+    public RestClientBuilder name(String name) {
+        this.name = name;
+        return this;
+    }
 
     // 通过建造者创建RestClient对象
     public RestClient build() {
-        return new RestClient(url, PARAMS, request, success, failure, error, body, context, loaderStyle);
+        return new RestClient(url, PARAMS, downloadDir, extension, name, request, success, failure, error, body, file, context, loaderStyle);
     }
 }

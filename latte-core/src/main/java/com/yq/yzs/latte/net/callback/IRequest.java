@@ -8,7 +8,7 @@ package com.yq.yzs.latte.net.callback;
 
 public interface IRequest {
 
-    void onRequestStare();
+    void onRequestStart();
 
     void onRequestEnd();
 }

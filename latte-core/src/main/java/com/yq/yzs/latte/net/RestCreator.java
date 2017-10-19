@@ -4,9 +4,11 @@ package com.yq.yzs.latte.net;
 import com.yq.yzs.latte.core.app.ConfigKeys;
 import com.yq.yzs.latte.core.app.Latte;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
@@ -18,9 +20,32 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 
 public final class RestCreator {
+
     // OkHttpClient 对象
     private static final class OKHttpHolder {
-        private static final OkHttpClient OK_HTTP_CLIENT = new OkHttpClient.Builder().connectTimeout(60, TimeUnit.SECONDS).build();
+
+        private static final ArrayList<Interceptor> INTERCEPTORS = Latte.getConfiguration(ConfigKeys.INTERCEPTOR);
+        // 1 创建Builder对象
+        private static final OkHttpClient.Builder BUILDER = new OkHttpClient.Builder();
+
+        // 2 在Builder中添加拦截器参数
+        private static OkHttpClient.Builder addInterceptor() {
+            if (INTERCEPTORS != null) {
+                for (Interceptor interceptor : INTERCEPTORS) {
+                    BUILDER.addInterceptor(interceptor); // 添加配置项中的拦截器
+                }
+            }
+            return BUILDER;
+        }
+
+        // 3 在Builder中添加其他参数
+        private static final OkHttpClient OK_HTTP_CLIENT = addInterceptor()
+                //.addInterceptor() // 添加其他应用拦截器
+                //.addNetworkInterceptor() // 添加其他网络拦截器
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .build();
+
+
     }
 
     // Retrofit 的 Builder

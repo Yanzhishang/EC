@@ -8,8 +8,9 @@ package com.yq.yzs.latte.core.app;
 
 public enum ConfigKeys {
     API_HOST,// 网络域名 http://www.baidu.com
-    APPLICTION_CONTEXT,// 上下文
+    APPLICATION_CONTEXT,// 上下文
     CONFIG_READY,// 配置完成
     ICON,// 字体图标
+    INTERCEPTOR,// 拦截器
 
 }

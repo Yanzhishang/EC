@@ -27,38 +27,47 @@ public class ExampleDelegate extends LatteDelegate {
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @Nullable View rootView) {
         testRestClient();
+//        Toast.makeText(getContext(), "success:" , Toast.LENGTH_LONG).show();
+
     }
 
     public void testRestClient() {
-        //        String URL = "http://duoyue.duapp.com/httpdata/json_simple.php";
+        // String URL = "https://www.baidu.com/index.html";
         RestClient.builder()
-                .url("http://duoyue.duapp.com/httpdata/json_simple.php")
+                .url("https://www.baidu.com/index.html")
                 .loader(getContext())
                 .success(new ISuccess() {
-            @Override
-            public void onSuccess(String response) {
-                Toast.makeText(getContext(), "success:" + response, Toast.LENGTH_LONG).show();
-            }
-        }).failure(new IFailure() {
-            @Override
-            public void onFailure() {
-                Toast.makeText(getContext(), "failure", Toast.LENGTH_LONG).show();
-            }
-        }).error(new IError() {
-            @Override
-            public void onError(int code, String msg) {
-                Toast.makeText(getContext(), "error:" + msg, Toast.LENGTH_LONG).show();
-            }
-        }).onRequest(new IRequest() {
-            @Override
-            public void onRequestStare() {
+                    @Override
+                    public void onSuccess(String response) {
+                        Toast.makeText(getContext(), "success:" + response, Toast.LENGTH_LONG).show();
+                    }
+                })
+                .failure(new IFailure() {
+                    @Override
+                    public void onFailure() {
+                        Toast.makeText(getContext(), "failure", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .error(new IError() {
+                    @Override
+                    public void onError(int code, String msg) {
+                        Toast.makeText(getContext(), "error:" + msg, Toast.LENGTH_LONG).show();
+                    }
+                })
+                .onRequest(new IRequest() {
+                    @Override
+                    public void onRequestStart() {
 
-            }
+                    }
 
-            @Override
-            public void onRequestEnd() {
+                    @Override
+                    public void onRequestEnd() {
 
-            }
-        }).build().get();
+                    }
+                })
+                .build()
+                .get();
+
     }
+
 }

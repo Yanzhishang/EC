@@ -29,4 +29,13 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.+'
     testCompile 'junit:junit:4.12'
     compile project(':latte-core')
+
+    // convenientbanner轮播页面
+    compile 'com.bigkoo:convenientbanner:2.0.5'
+    // fastjson
+    compile 'com.alibaba:fastjson:1.2.39'
+    compile 'com.alibaba:fastjson:1.1.64.android'
+    // view-pager-transform
+    compile 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
+
 }

@@ -18,25 +18,25 @@ import me.yokeyword.fragmentation.SupportActivityDelegate;
 
 public abstract class ProxyActivity extends SupportActivity {
     private final SupportActivityDelegate DELEGATE = new SupportActivityDelegate(this);
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //DELEGATE 初始化
+        // DELEGATE初始化
         DELEGATE.onCreate(savedInstanceState);
-        //初始化视图
+        // 初始化视图
         initContainer(savedInstanceState);
     }
 
-    //初始化视图
+    // 初始化视图
     private void initContainer(Bundle savedInstanceState) {
-        //
+        // 布局中容纳Fragment的容器是FrameLayout 这里会使用ContentFrameLayout
         ContentFrameLayout container = new ContentFrameLayout(this);
         container.setId(R.id.delegate_container);
-        // activity 的 onCreate() 最终目的是 setContentView()
+        // activity的onCreate()最终目的是setContentView()
         setContentView(container);
-        // 在activity 中添加 delegate(fragmrnt)
-        if (savedInstanceState == null) {
+
+        // 在activity中添加delegate（frament）
+        if(savedInstanceState == null) {
             DELEGATE.loadRootFragment(R.id.delegate_container, setRootDelegate());
         }
     }
@@ -46,10 +46,8 @@ public abstract class ProxyActivity extends SupportActivity {
         DELEGATE.onDestroy();
         super.onDestroy();
         System.gc();
-
-
     }
 
-    //提供子类需要实现的方法,目的是让  进行绑定
+    // 提供子类需要实现的方法 目的是让Activity与Delegate进行绑定
     public abstract LatteDelegate setRootDelegate();
 }

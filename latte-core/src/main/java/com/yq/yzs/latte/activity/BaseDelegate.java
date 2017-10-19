@@ -1,13 +1,17 @@
 package com.yq.yzs.latte.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.yokeyword.fragmentation.SupportFragmentDelegate;
 import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
 
 /**
@@ -18,6 +22,10 @@ import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
  */
 
 public abstract class BaseDelegate extends SwipeBackFragment {
+    private final SupportFragmentDelegate DELEGATE = new SupportFragmentDelegate(this);
+    public FragmentActivity activity = null;
+
+
     //让子类实现 setLayout() 。规定要么返回布局 id 要么返回 view
     public abstract Object setLayout();
 
@@ -25,6 +33,17 @@ public abstract class BaseDelegate extends SwipeBackFragment {
     public abstract void onBindView(@Nullable Bundle savedInstanceState, @Nullable View rootView);
 
     private Unbinder mUnbinder = null;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        DELEGATE.onAttach((Activity) context);
+        activity = DELEGATE.getActivity();
+    }
+
+    public ProxyActivity getProxyActivity() {
+        return (ProxyActivity) activity;
+    }
 
     /**
      * 创建视图 并返回
@@ -49,7 +68,7 @@ public abstract class BaseDelegate extends SwipeBackFragment {
             rootView = (View) setLayout();
         } else {
             // 如果返回其他就 抛出异常
-            throw new ClassCastException("type of setLayout() must be int or View !!! ");
+            throw new ClassCastException("type of setLayout() must be int or View!!!");
         }
 
         // 添加 ButterKnife 的使用
